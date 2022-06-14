@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Service
-public class DictionaryImpl implements IDictionaryService {
+public class DictionaryService implements IDictionaryService {
     @Override
     public String dictionary(String word) {
         Map<String, String> dic = new HashMap<>();
