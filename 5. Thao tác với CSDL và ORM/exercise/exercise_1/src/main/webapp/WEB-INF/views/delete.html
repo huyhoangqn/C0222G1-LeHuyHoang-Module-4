@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete</title>
+</head>
+<body>
+<h1>Are you sure delete?</h1>
+<form th:action="@{/delete}" method="post" th:object="${deleteFormMusic}" novalidate="novalidate" enctype="multipart/form-data">
+<!--    Dùng th:value sẽ gây lỗi, sai-->
+<!--    <input type="hidden" th:field="*{id}">-->
+<!--    <h1 th:text="${deleteFormMusic.nameMusic}"></h1>-->
+
+    <input type="text"  th:field="*{id}" readonly>
+    <label>NameMusic</label>
+    <input type="text"  th:field="*{nameMusic}" readonly>
+    <label>Author</label>
+    <input type="text"  th:field="*{author}" readonly>
+    <label>Category</label>
+    <input type="text"  th:field="*{category}" readonly>
+    <label>Music</label>
+    <input type="file"  th:field="*{music}" readonly>
+    <button type="submit">Delete</button>
+</form>
+</body>
+</html>

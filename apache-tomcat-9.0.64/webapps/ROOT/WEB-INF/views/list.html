@@ -30,17 +30,17 @@
     </div>
 </div>
 <p>
-    <a th:href="@{/product}">
+    <a th:href="@{/}">
         Home
     </a>
 </p>
 <p>
-    <a th:href="@{/product/create}">
+    <a th:href="@{/create}">
         Add new Product
     </a>
 </p>
 <div>
-    <form th:action="@{/product/search}" th:object="${product}" method="get" novalidate="novalidate">
+    <form th:action="@{/search}" th:object="${product}" method="get" novalidate="novalidate">
         <input type="text" th:field="*{name}">
         <input type="submit" value="Search">
     </form>
@@ -65,9 +65,9 @@
         <td th:text="${row.price}"></td>
         <td th:text="${row.description}"></td>
         <td th:text="${row.manufacturer}"></td>
-        <td><a th:href="@{/product/{id}/edit(id=${row.id})}">edit</a></td>
-        <td><a th:href="@{/product/{id}/delete(id=${row.id})}">delete</a></td>
-        <td><a th:href="@{/product/{id}/view(id=${row.id})}">view</a></td>
+        <td><a th:href="@{/{id}/edit(id=${row.id})}">edit</a></td>
+        <td><a th:href="@{/{id}/delete(id=${row.id})}">delete</a></td>
+        <td><a th:href="@{/{id}/view(id=${row.id})}">view</a></td>
     </tr>
     </tbody>
 </table>

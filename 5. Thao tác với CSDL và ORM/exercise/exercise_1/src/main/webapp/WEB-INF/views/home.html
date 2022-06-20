@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>HOME PAGE</title>
+</head>
+<body>
+<header th:replace="~{/layout::head}"></header>
+<a th:href="@{/create}">CREATE NEW MUSIC</a>
+<table border="1">
+    <tr>
+        <th>STT</th>
+        <th>ID</th>
+        <th>NAME MUSIC</th>
+        <th>AUTHOR</th>
+        <th>CATEGORY</th>
+        <th>MUSIC</th>
+        <th>ACTION</th>
+    </tr>
+
+    <tr th:each="row,rowStat:${list}">
+            <td th:text="${rowStat.count}"></td>
+            <td th:text="${row.id}"></td>
+            <td th:text="${row.nameMusic}"></td>
+            <td th:text="${row.author}"></td>
+            <td th:text="${row.category}"></td>
+            <td>
+                <audio id="track" controls loop>
+                    <source th:src="@{'/image/'+${row.music}}" type="audio/ogg">
+                    <source th:src="@{'/image/'+${row.music}}" type="audio/mpeg">
+                    <p>Your browser does not support the audio element</p>
+                </audio>
+            </td>
+        <td>
+            <a th:href="@{/edit{id}(id=${row.id})}">EDIT</a></td>
+            <td><a th:href="@{/detail{id}(id=${row.id})}">DETAIL</a></td>
+            <td><a th:href="@{/delete{id}(id=${row.id})}">DELETE</a></td>
+        </tr>
+</table>
+<p style="color: #ff0000">
+    <div th:if="${success}">
+        <span style="color: red" th:text="${success}"></span>
+    </div>
+</p>
+<footer th:replace="/layout::footer"></footer>
+</body>
+</html>

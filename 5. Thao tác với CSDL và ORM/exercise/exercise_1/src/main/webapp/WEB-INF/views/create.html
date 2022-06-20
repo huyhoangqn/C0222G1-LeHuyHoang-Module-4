@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>CREATE</title>
+</head>
+<body>
+<div th:replace="layout::head"></div>
+
+<div id="form">
+  <form method="post" th:object="${music}" enctype="multipart/form-data" novalidate="novalidate">
+    <div>
+      <label>ID</label>
+    <input type="hidden" th:field="*{id}" >
+    </div>
+      <div>
+          <label>NAME MUSIC</label>
+    <input type="text" id="name" th:field="*{nameMusic}">
+      </div>
+          <div>
+              <label>AUTHOR</label>
+    <input type="text" id="author" th:field="*{author}">
+          </div>
+              <div>
+                  <label>CATEGORY</label>
+    <input type="text" id="category" th:field="*{category}">
+              </div>
+                  <div>
+                      <label>MUSIC FILE</label>
+    <input type="file" id="file" th:field="*{music}">
+                  </div>
+    <button type="submit" style="color: #45a049">CREATE</button>
+  </form>
+</div>
+<div th:insert="layout::footer"></div>
+<a th:href="@{musics}">
+    BACK TO HOME PAGE
+</a>
+</body>
+</html>
