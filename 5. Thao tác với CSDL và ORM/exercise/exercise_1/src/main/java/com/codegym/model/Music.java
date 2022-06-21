@@ -1,44 +1,47 @@
 package com.codegym.model;
 
-import net.bytebuddy.dynamic.loading.InjectionClassLoader;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
-import javax.annotation.Generated;
-import javax.persistence.*;
-
-@Entity
+@Entity(name = "music")
 public class Music {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private int id;
     private String nameMusic;
     private String author;
     private String category;
     private String music;
+    private int status = 0;
 
     public Music() {
     }
 
-    public Music(Long id, String nameMusic, String author, String category, String music) {
+    public Music(int id, String nameMusic, String author, String category, String music, int status) {
         this.id = id;
         this.nameMusic = nameMusic;
         this.author = author;
         this.category = category;
         this.music = music;
+        this.status = status;
     }
 
-    public Music(Long id, String nameMusic, String author, String category) {
-        this.id = id;
-        this.nameMusic = nameMusic;
-        this.author = author;
-        this.category = category;
-    }
-
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 
     public String getNameMusic() {

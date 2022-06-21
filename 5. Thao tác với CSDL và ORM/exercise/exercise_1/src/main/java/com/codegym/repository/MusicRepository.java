@@ -1,47 +1,53 @@
 package com.codegym.repository;
 
 import com.codegym.model.Music;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.stereotype.Repository;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
+import javax.persistence.EntityTransaction;
 import java.util.List;
 
-@Transactional
+@Repository
 public class MusicRepository implements IMusicRepository {
-
-    @PersistenceContext
-    EntityManager em;
-
     @Override
     public List<Music> findAll() {
-        String queryStr = "select c from Music as c";
-        TypedQuery<Music> qr = em.createQuery(queryStr, Music.class);
-        return qr.getResultList();
+        return BaseRepository.entityManager.createQuery("select m from music m where status = 0", Music.class).getResultList();
     }
 
-    @Override
-    public void save(Music music) {
-        if (music.getId() != null) {
-            em.merge(music);
-        } else {
-            em.persist(music);
-        }
-    }
-
-    @Override
-    public void delete(Long id) {
-        Music music = findById(id);
-        if (music != null) {
-            em.remove(music);
-        }
-    }
-
-    @Override
-    public Music findById(Long id) {
-        String queryStr = "select c from Music as c where c.id=:id";
-        Music music1 = em.createQuery(queryStr, Music.class).setParameter("id", id).getSingleResult();
-        return music1;
-    }
+//    @Override
+//    public void save(Music music) {
+//        EntityTransaction entityTransaction = BaseRepository.entityManager.getTransaction();
+//        entityTransaction.begin();
+//        BaseRepository.entityManager.persist(music);
+//        entityTransaction.commit();
+//    }
+//
+//    @Override
+//    public void update(Music music) {
+//        EntityTransaction entityTransaction = BaseRepository.entityManager.getTransaction();
+//        entityTransaction.begin();
+//        BaseRepository.entityManager.merge(music);
+//        entityTransaction.commit();
+//    }
+//
+//    @Override
+//    public Music findById(int idSearch) {
+//        return BaseRepository.entityManager.createQuery("select m from music m where id = ?1", Music.class).setParameter(1, idSearch).getSingleResult();
+//    }
+//
+//    @Override
+//    public void delete(int id) {
+//        EntityTransaction entityTransaction = BaseRepository.entityManager.getTransaction();
+//        entityTransaction.begin();
+//
+//        Music music = findById(id);
+//        music.setStatus(1);
+//        BaseRepository.entityManager.merge(music);
+//
+//        entityTransaction.commit();
+//    }
+//
+//    @Override
+//    public List<Music> search(String name) {
+//        return BaseRepository.entityManager.createQuery("select m from music m where name like ?1 and m.status = 0", Music.class).setParameter(1, "%" + name + "%").getResultList();
+//    }
 }

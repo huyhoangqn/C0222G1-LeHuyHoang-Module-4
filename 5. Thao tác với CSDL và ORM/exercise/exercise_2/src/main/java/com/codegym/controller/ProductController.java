@@ -58,7 +58,6 @@ public class ProductController {
         return "redirect:/";
     }
 
-
         @GetMapping("/{id}/view")
     public String view(@PathVariable int id, Model model) {
         model.addAttribute("product", producrService.findById(id));
