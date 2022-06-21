@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<p>
+    <a th:href="@{/create}">
+        Add new song
+    </a>
+</p>
+
+<div>
+    <form action="/search"  novalidate="novalidate">
+        <input type="text" name="name">
+        <input type="submit" value="Search">
+    </form>
+</div>
+
+
+<table border="1">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Song</th>
+        <th>Singer</th>
+        <th>Type Song</th>
+        <th>Get link</th>
+    </tr>
+    </thead>
+    <tbody>
+
+
+    <tr th:each="row, rowStat : ${mp3List}" >
+        <td th:text="${row.getId()}"></td>
+        <td th:text="${row.getName()}"></td>
+        <td th:text="${row.getSinger()}"></td>
+        <td th:text="${row.getTypeSong()}"></td>
+        <td th:text="${row.getLink()}"></td>
+        <td><a th:href="@{/{id}/edit(id=${row.getId()})}">Edit</a></td>
+        <td><a th:href="@{/{id}/delete(id=${row.getId()})}">Delete</a></td>
+        <td><a th:href="@{/{id}/view(id=${row.getId()})}">View</a></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

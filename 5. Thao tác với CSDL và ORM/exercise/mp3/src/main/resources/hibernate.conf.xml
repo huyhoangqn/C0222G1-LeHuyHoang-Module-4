@@ -1,0 +1,14 @@
+<hibernate-configuration>
+    <session-factory>
+        <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/mp3?createDatabaseIfNotExist=true</property>
+        <property name="hibernate.connection.username">root</property>
+        <property name="hibernate.connection.password">titnhem10</property>
+        <!--         Hiển thị cau lệnh query  -->
+        <property name="show_sql">true</property>
+        <!--         Tự động update nếu entity có thay đổi. -->
+        <!--         Ngoài ra còn có create và none. -->
+        <property name="hbm2ddl.auto">update</property>
+        <mapping class="mp3.model.Mp3"/>
+    </session-factory>
+</hibernate-configuration>
