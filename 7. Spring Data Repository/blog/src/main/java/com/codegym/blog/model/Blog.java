@@ -23,6 +23,14 @@ public class Blog {
     public Blog() {
     }
 
+    public int getStatusDelete() {
+        return statusDelete;
+    }
+
+    public void setStatusDelete(int statusDelete) {
+        this.statusDelete = statusDelete;
+    }
+
     public Category getCategory() {
         return category;
     }

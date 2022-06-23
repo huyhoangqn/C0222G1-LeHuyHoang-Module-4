@@ -5,6 +5,7 @@ import com.codegym.blog.model.Category;
 import com.codegym.blog.service.impl.BlogService;
 import com.codegym.blog.service.impl.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -21,11 +22,13 @@ import java.util.List;
 @Controller
 public class BlogController {
     @Autowired
+//    @Qualifier("blog")
     private BlogService blogService;
     @Autowired
+//    @Qualifier("category")
     private CategoryService categoryService;
 
-    @GetMapping(value = "/")
+    @GetMapping
     public String getAllStudent(@RequestParam(name = "page", defaultValue = "0") int page, Model model) {
         Sort sort = Sort.by("date").ascending().and(Sort.by("title"));
         Page<Blog> list = blogService.getAll(PageRequest.of(page, 2, sort));
@@ -62,12 +65,14 @@ public class BlogController {
         return "/edit";
     }
 
-        @PostMapping("/update")
+    @PostMapping("/update")
     public String update(Blog blog, RedirectAttributes redirect) {
+
         blogService.update(blog);
         redirect.addFlashAttribute("success", "Updated blog successfully!");
         return "redirect:/";
     }
+
     @GetMapping(value = "/search")
     public String findAll(Model model, Blog blog) {
         List<Blog> blogList = blogService.search(blog.getTitle());

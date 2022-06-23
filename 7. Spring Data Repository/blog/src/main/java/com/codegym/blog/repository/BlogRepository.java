@@ -7,12 +7,15 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.Date;
 import java.util.List;
 
 @Transactional
+@Repository
 public interface BlogRepository extends JpaRepository<Blog, Integer> {
     @Query(value = "select * from blogs where status_delete = 1", nativeQuery = true)
     List<Blog> findAllBlog();
@@ -30,8 +33,8 @@ public interface BlogRepository extends JpaRepository<Blog, Integer> {
     Blog findByIdBlog(@Param("codeblog") Integer id);
 
     @Modifying
-    @Query(value = "UPDATE blogs SET author=:author, content=:content, date=:date, title:=title," +
-            " category_id:=categoryId WHERE id=:id", nativeQuery = true)
+    @Query(value = "UPDATE blogs SET author=:author, content=:content, date=:date, title=:title," +
+            " category_id=:categoryId WHERE id=:id", nativeQuery = true)
     void update(@Param("author") String author, @Param("content") String content, @Param("date")
             Date date, @Param("title") String title, @Param("categoryId") Integer categoryId, @Param("id") Integer id);
 
