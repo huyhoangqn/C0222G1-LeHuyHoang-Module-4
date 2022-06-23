@@ -5,7 +5,6 @@ import com.codegym.blog.model.Category;
 import com.codegym.blog.service.impl.BlogService;
 import com.codegym.blog.service.impl.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
