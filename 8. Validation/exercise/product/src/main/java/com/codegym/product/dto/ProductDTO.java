@@ -1,6 +1,5 @@
-package com.codegym.product.model.dto;
+package com.codegym.product.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 

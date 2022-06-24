@@ -1,7 +1,5 @@
 package com.codegym.product.service.Impl;
 
-import com.codegym.product.model.dto.ProductDTO;
-import com.codegym.product.model.entity.Product;
 import com.codegym.product.repository.IRepository;
 import com.codegym.product.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;

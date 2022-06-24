@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<head th:replace="~{common_product :: head}"></head>
+<h3>Add Product</h3>
+<p>
+    <a th:href="@{/product}">
+        Back to list
+    </a>
+</p>
+<form th:action="@{/save}" th:object="${productdto}" method="post">
+    <div>
+        <label>Name</label>
+        <input type="text" th:field="*{name}">
+    </div>
+    <td style="color: red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</td>
+    <div>
+        <label>Price</label>
+        <input type="text" th:field="*{price}"/>
+    </div>
+    <td style="color: red" th:if="${#fields.hasErrors('price')}" th:errors="*{price}">Price Error</td>
+    <div>
+        <label>Description</label>
+        <input type="text" th:field="*{description}"/>
+    </div>
+    <td style="color: red" th:if="${#fields.hasErrors('description')}" th:errors="*{description}">Description
+        Error
+    </td>
+    <div>
+        <label>Manufacturer</label>
+        <input type="text" th:field="*{manufacturer}"/>
+    </div>
+    <td style="color: red" th:if="${#fields.hasErrors('manufacturer')}" th:errors="*{manufacturer}">Manufacturer Error
+    </td>
+    <input type="submit" value="Save">
+</form>
+<footer th:replace="~{common_product :: footer}"></footer>
+</body>
+</html>

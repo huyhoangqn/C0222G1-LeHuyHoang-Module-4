@@ -20,7 +20,7 @@ public interface BlogRepository extends JpaRepository<Blog, Integer> {
     @Query(value = "select * from blogs where status_delete = 1", nativeQuery = true)
     List<Blog> findAllBlog();
 
-    @Query(value = "select * from blogs where status_delete = 1", nativeQuery = true)
+    @Query(value = "select * from blogs where status_de lete = 1", nativeQuery = true)
     Page<Blog> findAllBlog(Pageable pageable);
 
     @Modifying

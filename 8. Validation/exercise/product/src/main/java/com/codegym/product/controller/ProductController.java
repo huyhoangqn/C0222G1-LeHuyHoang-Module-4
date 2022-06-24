@@ -1,6 +1,6 @@
 package com.codegym.product.controller;
 
-import com.codegym.product.model.dto.ProductDTO;
+import com.codegym.product.dto.ProductDTO;
 import com.codegym.product.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
