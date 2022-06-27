@@ -1,13 +1,18 @@
 package com.codegym.furama.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "contract_detail")
+@Getter
+@Setter
 public class ContractDetail {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int contract_detail_id;
+    private int contractDetailId;
     private int quantity;
     @ManyToOne
     @JoinColumn(name = "attach_service_id")
@@ -25,42 +30,10 @@ public class ContractDetail {
         this.contract = contract;
     }
 
-    public ContractDetail(int contract_detail_id, int quantity, AttachService attachService, Contract contract) {
-        this.contract_detail_id = contract_detail_id;
+    public ContractDetail(int contractDetailId, int quantity, AttachService attachService, Contract contract) {
+        this.contractDetailId = contractDetailId;
         this.quantity = quantity;
         this.attachService = attachService;
-        this.contract = contract;
-    }
-
-    public int getContract_detail_id() {
-        return contract_detail_id;
-    }
-
-    public void setContract_detail_id(int contract_detail_id) {
-        this.contract_detail_id = contract_detail_id;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
-    public AttachService getAttachService() {
-        return attachService;
-    }
-
-    public void setAttachService(AttachService attachService) {
-        this.attachService = attachService;
-    }
-
-    public Contract getContract() {
-        return contract;
-    }
-
-    public void setContract(Contract contract) {
         this.contract = contract;
     }
 }

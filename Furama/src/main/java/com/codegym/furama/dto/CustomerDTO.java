@@ -1,94 +1,93 @@
 package com.codegym.furama.dto;
 
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Pattern;
+import java.util.Date;
+
+@Getter
+@Setter
 public class CustomerDTO {
+    @Pattern(regexp = "^(KH-)[\\d]{4}$", message = "The customer ID has the format KH-XXXX (X : 0-9)")
+    @NotBlank(message = "ID cannot be empty!!")
     private String customerId;
-    private String customerAddress;
-    private java.sql.Date customerBirthday;
-    private String customerEmail;
-    private String customerIdCard;
+
+    @NotBlank(message = "Name cannot be empty!!")
     private String customerName;
+
+    @Past(message = "Invalid date")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private java.util.Date customerBirthday;
+
+    @Pattern(regexp = "^([\\d]{9}|[\\d]{12})$", message = "IDcard invalid")
+    @NotBlank(message = "ID card cannot be empty!!")
+    private String customerIDCard;
+
+    @Pattern(regexp = "^((\\(84\\)\\+)|(0))((91)|(90)|(84)|(85)|(93)|(94)|(96)|(38)|(88)|(39))[\\d]{7}$",
+            message = "Invalid phone number")
+    @NotBlank(message = "Phone number cannot be empty!")
     private String customerPhone;
-    private Integer genderId;
-    private Integer customerTypeId;
-    private String customeridcard;
 
-    public String getCustomerId() {
-        return this.customerId;
+    @Pattern(regexp = "^(.+)@(.+)$", message = "Invalid email")
+    @NotBlank(message = "Email cannot be empty!!")
+    private String customerEmail;
+
+    @NotBlank(message = "Address cannot be empty!!")
+    private String customerAddress;
+
+    private Integer deleteStatus;
+
+    private CustomerTypeDTO customerTypeDTO;
+
+    private GenderDTO genderDTO;
+
+    public CustomerDTO() {
     }
 
-    public void setCustomerId(String customerId) {
+    public CustomerDTO(String customerId, String customerAddress, Date customerBirthday, String customerEmail,
+                       String customerIDCard, String customerName, String customerPhone, Integer deleteStatus) {
         this.customerId = customerId;
-    }
-
-    public String getCustomerAddress() {
-        return this.customerAddress;
-    }
-
-    public void setCustomerAddress(String customerAddress) {
-        this.customerAddress = customerAddress;
-    }
-
-    public java.sql.Date getCustomerBirthday() {
-        return this.customerBirthday;
-    }
-
-    public void setCustomerBirthday(java.sql.Date customerBirthday) {
-        this.customerBirthday = customerBirthday;
-    }
-
-    public String getCustomerEmail() {
-        return this.customerEmail;
-    }
-
-    public void setCustomerEmail(String customerEmail) {
-        this.customerEmail = customerEmail;
-    }
-
-    public String getCustomerIdCard() {
-        return this.customerIdCard;
-    }
-
-    public void setCustomerIdCard(String customerIdCard) {
-        this.customerIdCard = customerIdCard;
-    }
-
-    public String getCustomerName() {
-        return this.customerName;
-    }
-
-    public void setCustomerName(String customerName) {
         this.customerName = customerName;
-    }
-
-    public String getCustomerPhone() {
-        return this.customerPhone;
-    }
-
-    public void setCustomerPhone(String customerPhone) {
+        this.customerBirthday = customerBirthday;
+        this.customerIDCard = customerIDCard;
         this.customerPhone = customerPhone;
+        this.customerEmail = customerEmail;
+        this.customerAddress = customerAddress;
+        this.deleteStatus = deleteStatus;
     }
 
-    public Integer getGenderId() {
-        return this.genderId;
+    public CustomerDTO(String customerId, String customerAddress, Date customerBirthday, String customerEmail,
+                       String customerIDCard, String customerName, String customerPhone, GenderDTO genderDTO,
+                       CustomerTypeDTO customerTypeDTO, Integer deleteStatus) {
+        this.customerId = customerId;
+        this.customerName = customerName;
+        this.customerBirthday = customerBirthday;
+        this.customerIDCard = customerIDCard;
+        this.customerPhone = customerPhone;
+        this.customerEmail = customerEmail;
+        this.customerAddress = customerAddress;
+        this.deleteStatus = deleteStatus;
+        this.customerTypeDTO = customerTypeDTO;
+        this.genderDTO = genderDTO;
     }
 
-    public void setGenderId(Integer genderId) {
-        this.genderId = genderId;
+
+    public CustomerDTO(String customerId, String customerAddress, Date customerBirthday, String customerEmail,
+                       String customerIDCard, String customerName, String customerPhone
+            , Integer deleteStatus,CustomerTypeDTO customerTypeDTO) {
+        this.customerId = customerId;
+        this.customerName = customerName;
+        this.customerBirthday = customerBirthday;
+        this.customerIDCard = customerIDCard;
+        this.customerPhone = customerPhone;
+        this.customerEmail = customerEmail;
+        this.customerAddress = customerAddress;
+        this.deleteStatus = deleteStatus;
+        this.customerTypeDTO = customerTypeDTO;
     }
 
-    public Integer getCustomerTypeId() {
-        return this.customerTypeId;
-    }
-
-    public void setCustomerTypeId(Integer customerTypeId) {
-        this.customerTypeId = customerTypeId;
-    }
-
-    public String getCustomeridcard() {
-        return this.customeridcard;
-    }
-
-    public void setCustomeridcard(String customeridcard) {
-        this.customeridcard = customeridcard;
-    }
 }

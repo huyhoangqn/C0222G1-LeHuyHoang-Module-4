@@ -14,7 +14,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 @Transactional
 public interface IRepository extends JpaRepository<Product, Integer> {
-    @Query(value = "SELECT new com.codegym.product2.dto.ProductDTO(p.id, p.description, p.manufacturer, p.name, p.price, p.status) FROM Product p where p.status =1")
+    @Query(value = "SELECT new com.codegym.product2.dto.ProductDTO(p.id, p.description, p.manufacturer, p.name," +
+            " p.price, p.status) FROM Product p where p.status =1")
     Page<ProductDTO> findAllProduct(Pageable pageable);
 
     @Modifying

@@ -7,13 +7,13 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
           integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
 </head>
-<body>
+<th:body>
 <div style="background-color: #e7e9eb" class="container-fluid">
     <div class="row">
         <div class="col-6 d-flex justify-content-lg-start">
             <div class="ml-3 mt-1">
                 <a href="#">
-                    <img src="/static/img/logo.png">
+                    <img th:src="@{/img/logo.png}">
                 </a>
             </div>
         </div>
@@ -93,19 +93,17 @@
     </div>
 </nav>
 <hr style="width: 100%; background-color: black; opacity: 50%">
-<%--body--%>
 <div class="container-fluid">
     <div class="row mt-2 mb-3">
         <div class="col-2 pr-0 mb-0 pb-0">
-            <img class="mb-0" style="width: 100%; height: 100%; opacity: 70%" src="/static/img/Untitled-5.png" alt="">
+            <img class="mb-0" style="width: 100%; height: 100%; opacity: 70%" th:src="@{/img/Untitled-5.png}" alt="">
         </div>
         <div class="col-10">
-            <img style="width: 100%; height: 100%" src="/static/img/Untitled-6.png" alt="">
+            <img style="width: 100%; height: 100%" th:src="@{/img/Untitled-6.png}" alt="">
         </div>
     </div>
 </div>
 
-<%--footer--%>
 <div class="container-fluid">
     <footer class="bg-dark text-center text-white">
         <div class="container p-4">
@@ -143,12 +141,12 @@
         </div>
         <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
             © 2020 Copyright:
-            <a class="text-white" href="https://mdbootstrap.com/">Furama Resort</a>
+            <a class="text-white" th:href="@{https://mdbootstrap.com/}">Furama Resort</a>
         </div>
         <!-- Copyright -->
     </footer>
 </div>
-</body>
+</th:body>
 <!--<script src="/static/js/jquery.slim.min.js"></script>-->
 <!--<script src="/static/js/popper.min.js"></script>-->
 <!--<script src="/static/bootstrap/dist/js/bootstrap.min.js"></script>-->

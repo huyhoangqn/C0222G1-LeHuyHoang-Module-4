@@ -1,5 +1,7 @@
 package com.codegym.furama.entity;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -9,6 +11,8 @@ import java.util.Set;
 
 @Entity
 @Table(name = "employee")
+@Getter
+@Setter
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -77,109 +81,4 @@ public class Employee {
         this.educationDegree = educationDegree;
         this.division = division;
     }
-
-    public Gender getEmployeeGender() {
-        return employeeGender;
-    }
-
-    public void setEmployeeGender(Gender employee_gender) {
-        this.employeeGender = employee_gender;
-    }
-
-    public Set<Contract> getContracts() {
-        return contracts;
-    }
-
-    public void setContracts(Set<Contract> contracts) {
-        this.contracts = contracts;
-    }
-
-    public int getEmployeeId() {
-        return employeeId;
-    }
-
-    public void setEmployeeId(int employee_id) {
-        this.employeeId = employee_id;
-    }
-
-    public String getEmployeeName() {
-        return employeeName;
-    }
-
-    public void setEmployeeName(String employee_name) {
-        this.employeeName = employee_name;
-    }
-
-    public Date getEmployeeBirthday() {
-        return employeeBirthday;
-    }
-
-    public void setEmployeeBirthday(Date employee_birthday) {
-        this.employeeBirthday = employee_birthday;
-    }
-
-    public String getEmployeeIDCard() {
-        return employeeIDCard;
-    }
-
-    public void setEmployeeIDCard(String employee_id_card) {
-        this.employeeIDCard = employee_id_card;
-    }
-
-    public double getEmployeeSalary() {
-        return employeeSalary;
-    }
-
-    public void setEmployeeSalary(double employee_salary) {
-        this.employeeSalary = employee_salary;
-    }
-
-    public String getEmployeePhone() {
-        return employeePhone;
-    }
-
-    public void setEmployeePhone(String employee_phone) {
-        this.employeePhone = employee_phone;
-    }
-
-    public String getEmployeeEmail() {
-        return employeeEmail;
-    }
-
-    public void setEmployeeEmail(String employee_email) {
-        this.employeeEmail = employee_email;
-    }
-
-    public String getEmployeeAddress() {
-        return employeeAddress;
-    }
-
-    public void setEmployeeAddress(String employee_address) {
-        this.employeeAddress = employee_address;
-    }
-
-    public Position getPosition() {
-        return position;
-    }
-
-    public void setPosition(Position position) {
-        this.position = position;
-    }
-
-    public EducationDegree getEducationDegree() {
-        return educationDegree;
-    }
-
-    public void setEducationDegree(EducationDegree educationDegree) {
-        this.educationDegree = educationDegree;
-    }
-
-    public Division getDivision() {
-        return division;
-    }
-
-    public void setDivision(Division division) {
-        this.division = division;
-    }
-
 }

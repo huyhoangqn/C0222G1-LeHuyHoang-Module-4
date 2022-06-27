@@ -1,10 +1,15 @@
 package com.codegym.furama.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
 @Table(name = "gender")
+@Getter
+@Setter
 public class Gender {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,38 +34,6 @@ public class Gender {
     public Gender(int genderId, String gender, List<Customer> customerList) {
         this.genderId = genderId;
         this.gender = gender;
-        this.customerList = customerList;
-    }
-
-    public int getGenderId() {
-        return genderId;
-    }
-
-    public void setGenderId(int gender_id) {
-        this.genderId = gender_id;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
-    public List<Employee> getEmployeeList() {
-        return employeeList;
-    }
-
-    public void setEmployeeList(List<Employee> employeeList) {
-        this.employeeList = employeeList;
-    }
-
-    public List<Customer> getCustomerList() {
-        return customerList;
-    }
-
-    public void setCustomerList(List<Customer> customerList) {
         this.customerList = customerList;
     }
 }

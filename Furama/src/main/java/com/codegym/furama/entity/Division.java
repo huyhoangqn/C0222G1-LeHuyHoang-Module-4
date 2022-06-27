@@ -1,15 +1,20 @@
 package com.codegym.furama.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
 @Table(name = "division")
+@Getter
+@Setter
 public class Division {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int division_id;
-    private String division_name;
+    private int divisionId;
+    private String divisionName;
 
     @OneToMany(mappedBy = "division")
     private List<Employee> employeeList;
@@ -18,37 +23,13 @@ public class Division {
     }
 
     public Division(String division_name, List<Employee> employeeList) {
-        this.division_name = division_name;
+        this.divisionName = division_name;
         this.employeeList = employeeList;
     }
 
-    public Division(int division_id, String division_name, List<Employee> employeeList) {
-        this.division_id = division_id;
-        this.division_name = division_name;
-        this.employeeList = employeeList;
-    }
-
-    public int getDivision_id() {
-        return division_id;
-    }
-
-    public void setDivision_id(int division_id) {
-        this.division_id = division_id;
-    }
-
-    public String getDivision_name() {
-        return division_name;
-    }
-
-    public void setDivision_name(String division_name) {
-        this.division_name = division_name;
-    }
-
-    public List<Employee> getEmployeeList() {
-        return employeeList;
-    }
-
-    public void setEmployeeList(List<Employee> employeeList) {
+    public Division(int divisionId, String divisionName, List<Employee> employeeList) {
+        this.divisionId = divisionId;
+        this.divisionName = divisionName;
         this.employeeList = employeeList;
     }
 }

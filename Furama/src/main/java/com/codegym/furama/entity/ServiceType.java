@@ -1,15 +1,20 @@
 package com.codegym.furama.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
 @Table(name = "service_type")
+@Getter
+@Setter
 public class ServiceType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int service_type_id;
-    private String service_type_name;
+    private int serviceTypeId;
+    private String serviceTypeName;
 
     @OneToMany(mappedBy = "serviceType")
     private List<Service> serviceList;
@@ -17,38 +22,15 @@ public class ServiceType {
     public ServiceType() {
     }
 
-    public ServiceType(String service_type_name, List<Service> serviceList) {
-        this.service_type_name = service_type_name;
+    public ServiceType(String serviceTypeName, List<Service> serviceList) {
+        this.serviceTypeName = serviceTypeName;
         this.serviceList = serviceList;
     }
 
-    public ServiceType(int service_type_id, String service_type_name, List<Service> serviceList) {
-        this.service_type_id = service_type_id;
-        this.service_type_name = service_type_name;
+    public ServiceType(int serviceTypeId, String serviceTypeName, List<Service> serviceList) {
+        this.serviceTypeId = serviceTypeId;
+        this.serviceTypeName = serviceTypeName;
         this.serviceList = serviceList;
     }
 
-    public int getService_type_id() {
-        return service_type_id;
-    }
-
-    public void setService_type_id(int service_type_id) {
-        this.service_type_id = service_type_id;
-    }
-
-    public String getService_type_name() {
-        return service_type_name;
-    }
-
-    public void setService_type_name(String service_type_name) {
-        this.service_type_name = service_type_name;
-    }
-
-    public List<Service> getServiceList() {
-        return serviceList;
-    }
-
-    public void setServiceList(List<Service> serviceList) {
-        this.serviceList = serviceList;
-    }
 }

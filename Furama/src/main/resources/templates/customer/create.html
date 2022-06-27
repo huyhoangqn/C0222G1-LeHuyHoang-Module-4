@@ -38,8 +38,8 @@
     Customer Type:
     <select th:field="*{customerType}">
         <option th:each="item: ${customerTypes}"
-                th:value="${item.customer_type_id}" th:text="${item.customer_type_name}"
-                th:selected="${item.customer_type_name}"></option>
+                th:value="${item.customerTypeId}" th:text="${item.customerTypeName}"
+                th:selected="${item.customerTypeName}"></option>
     </select><br>
     <input type="submit" value="Create">
 </form>
