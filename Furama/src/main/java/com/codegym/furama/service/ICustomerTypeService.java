@@ -1,10 +1,13 @@
 package com.codegym.furama.service;
 
 
+import com.codegym.furama.dto.CustomerTypeDTO;
 import com.codegym.furama.entity.CustomerType;
 
+import java.util.List;
+
 public interface ICustomerTypeService {
-    Iterable<CustomerType> findAll();
+    List<CustomerTypeDTO> findAllCustomerType();
 
     CustomerType findById(int id);
 

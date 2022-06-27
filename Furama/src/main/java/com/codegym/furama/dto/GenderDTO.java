@@ -1,22 +1,19 @@
 package com.codegym.furama.dto;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class GenderDTO {
     private Integer genderId;
     private String gender;
 
-    public Integer getGenderId() {
-        return this.genderId;
-    }
-
-    public void setGenderId(Integer genderId) {
+    public GenderDTO(Integer genderId, String gender) {
         this.genderId = genderId;
-    }
-
-    public String getGender() {
-        return this.gender;
-    }
-
-    public void setGender(String gender) {
         this.gender = gender;
+    }
+
+    public GenderDTO() {
     }
 }

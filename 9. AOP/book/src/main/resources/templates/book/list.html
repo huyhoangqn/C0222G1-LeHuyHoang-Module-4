@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<h1>List Book</h1>
+<a href="/home">Back to menu</a>
+
+<h5 th:text="${msg!=null?msg:''}"></h5>
+<table border="1">
+    <tr>
+        <th>Name Book</th>
+        <th>Quantity</th>
+        <th>Select</th>
+    </tr>
+    <th:block th:each="book : ${books}">
+        <tr>
+            <td th:text="${book.name}"></td>
+            <td th:text="${book.quantity}"></td>
+            <td><a th:href="@{/borrow/{id}(id=${book.getId()})}">Mượn Sách</a>
+                <a th:onclick="'returnBook('+${book.getId()}+')'">Trả Sách</a>
+            </td>
+        </tr>
+    </th:block>
+</table>
+<script>
+    function returnBook(id) {
+        const idBook = id;
+        const code = prompt("Bạn vui lòng nhập mã mượn sách");
+        if (code != null && code.length > 0) {
+            window.location.href = "http://localhost:8080/return?" + "idBook=" + idBook + "&code=" + code;
+        }
+    }
+</script>
+</body>
+</html>

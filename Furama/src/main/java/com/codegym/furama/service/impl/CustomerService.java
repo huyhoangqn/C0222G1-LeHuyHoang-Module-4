@@ -1,11 +1,11 @@
 package com.codegym.furama.service.impl;
 
+import com.codegym.furama.dto.CustomerDTO;
 import com.codegym.furama.entity.Customer;
 import com.codegym.furama.repository.CustomerRepository;
 import com.codegym.furama.service.DuplicateIDException;
 import com.codegym.furama.service.ICustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -16,8 +16,8 @@ public class CustomerService implements ICustomerService {
     CustomerRepository customerRepository;
 
     @Override
-    public Page<Customer> findAll(Pageable pageable) {
-        return customerRepository.findAll(pageable);
+    public Page<CustomerDTO> findAllCustomer(Pageable pageable) {
+        return customerRepository.findAllCustomer(pageable);
     }
 
     @Override
@@ -25,15 +25,15 @@ public class CustomerService implements ICustomerService {
         return customerRepository.findById(id).orElse(null);
     }
 
-    @Override
-    public Customer create(Customer customer) throws DuplicateIDException {
-        try {
-            customerRepository.save(customer);
-            return customer;
-        } catch (DataIntegrityViolationException e) {
-            throw new DuplicateIDException();
-        }
-    }
+//    @Override
+//    public Customer create(Customer customer) throws DuplicateIDException {
+//        try {
+//            customerRepository.save(customer);
+//            return customer;
+//        } catch (DataIntegrityViolationException e) {
+//            throw new DuplicateIDException();
+//        }
+//    }
 
     @Override
     public Customer edit(Customer customer) throws DuplicateIDException {
@@ -59,4 +59,19 @@ public class CustomerService implements ICustomerService {
         return null;
     }
 
+    @Override
+    public void createCustomer(CustomerDTO customerDTO) {
+        Customer customer = new Customer();
+        customer.setCustomerId(customerDTO.getCustomerId());
+        customer.setCustomerAddress(customerDTO.getCustomerAddress());
+        customer.setCustomerBirthday(customerDTO.getCustomerBirthday());
+        customer.setCustomerEmail(customerDTO.getCustomerEmail());
+        customer.setCustomerIDCard(customerDTO.getCustomerIDCard());
+        customer.setCustomerName(customerDTO.getCustomerName());
+        customer.setCustomerPhone(customerDTO.getCustomerPhone());
+        customer.setDeleteStatus(1);
+        customer.setCustomerGenderId(customerDTO.getCustomerTypeDTO().getCustomerTypeId());
+        customer.setCustomerGenderId(customerDTO.getCustomerTypeDTO().getCustomerTypeId());
+        customerRepository.save(customer);
+    }
 }

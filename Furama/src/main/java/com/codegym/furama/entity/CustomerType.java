@@ -14,6 +14,7 @@ public class CustomerType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int customerTypeId;
+    //    @JsonIgnore
     private String customerTypeName;
 
     @OneToMany(mappedBy = "customerType")

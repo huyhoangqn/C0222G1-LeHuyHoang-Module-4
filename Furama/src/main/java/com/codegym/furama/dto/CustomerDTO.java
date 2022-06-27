@@ -41,6 +41,13 @@ public class CustomerDTO {
 
     private Integer deleteStatus;
 
+    private String customerTypeName;
+    private Integer customerTypeId;
+
+
+    private String genderName;
+    private Integer genderId;
+
     private CustomerTypeDTO customerTypeDTO;
 
     private GenderDTO genderDTO;
@@ -49,7 +56,7 @@ public class CustomerDTO {
     }
 
     public CustomerDTO(String customerId, String customerAddress, Date customerBirthday, String customerEmail,
-                       String customerIDCard, String customerName, String customerPhone, Integer deleteStatus) {
+                       String customerIDCard, String customerName, String customerPhone, String customerTypeName, String genderName, Integer deleteStatus) {
         this.customerId = customerId;
         this.customerName = customerName;
         this.customerBirthday = customerBirthday;
@@ -58,11 +65,12 @@ public class CustomerDTO {
         this.customerEmail = customerEmail;
         this.customerAddress = customerAddress;
         this.deleteStatus = deleteStatus;
+        this.customerTypeName = customerTypeName;
+        this.genderName = genderName;
     }
 
     public CustomerDTO(String customerId, String customerAddress, Date customerBirthday, String customerEmail,
-                       String customerIDCard, String customerName, String customerPhone, GenderDTO genderDTO,
-                       CustomerTypeDTO customerTypeDTO, Integer deleteStatus) {
+                       String customerIDCard, String customerName, String customerPhone, Integer customerTypeId, Integer genderId, CustomerTypeDTO customerTypeDTO, GenderDTO genderDTO) {
         this.customerId = customerId;
         this.customerName = customerName;
         this.customerBirthday = customerBirthday;
@@ -70,24 +78,7 @@ public class CustomerDTO {
         this.customerPhone = customerPhone;
         this.customerEmail = customerEmail;
         this.customerAddress = customerAddress;
-        this.deleteStatus = deleteStatus;
         this.customerTypeDTO = customerTypeDTO;
         this.genderDTO = genderDTO;
     }
-
-
-    public CustomerDTO(String customerId, String customerAddress, Date customerBirthday, String customerEmail,
-                       String customerIDCard, String customerName, String customerPhone
-            , Integer deleteStatus,CustomerTypeDTO customerTypeDTO) {
-        this.customerId = customerId;
-        this.customerName = customerName;
-        this.customerBirthday = customerBirthday;
-        this.customerIDCard = customerIDCard;
-        this.customerPhone = customerPhone;
-        this.customerEmail = customerEmail;
-        this.customerAddress = customerAddress;
-        this.deleteStatus = deleteStatus;
-        this.customerTypeDTO = customerTypeDTO;
-    }
-
 }

@@ -1,7 +1,6 @@
 package com.codegym.furama.controller;
 
-import com.codegym.furama.entity.Customer;
-import com.codegym.furama.service.DuplicateIDException;
+import com.codegym.furama.dto.CustomerDTO;
 import com.codegym.furama.service.impl.CustomerService;
 import com.codegym.furama.service.impl.CustomerTypeService;
 import com.codegym.furama.service.impl.GenderService;
@@ -29,37 +28,50 @@ public class CustomerController {
 
     @GetMapping("/customer-list")
     public String list(@RequestParam(name = "page", defaultValue = "0") int page, Model model) {
-        Page<Customer> list = customerService.findAll(PageRequest.of(page, 1));
+        Page<CustomerDTO> list = customerService.findAllCustomer(PageRequest.of(page, 1));
         model.addAttribute("customers", list);
         return "/customer/list";
     }
 
     @GetMapping("/customer-create")
     public String showFormCreate(Model model) {
-        model.addAttribute("customer", new Customer());
-        model.addAttribute("genders", genderService.findAll());
-        model.addAttribute("customerTypes", customerTypeService.findAll());
+        model.addAttribute("customerDTO", new CustomerDTO());
+        model.addAttribute("genders", genderService.findAllGender());
+        model.addAttribute("customerTypes", customerTypeService.findAllCustomerType());
         return "/customer/create";
     }
 
     @PostMapping("/customer-save")
-    public String save(@Valid Customer customer, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
-        try {
-            if (bindingResult.hasErrors()) {
-                model.addAttribute("genders", genderService.findAll());
-                model.addAttribute("customerTypes", customerTypeService.findAll());
-                return "/customer/create";
-            } else {
-                if (!customerService.existId(customer.getCustomerId())) {
-                    customerService.create(customer);
-                    redirectAttributes.addFlashAttribute("success", "Create complete");
-                    return "redirect:/customer-list";
-                } else {
-                    throw new DuplicateIDException();
-                }
-            }
-        } catch (DuplicateIDException e) {
-            return "/customer/inputs-not-acceptable";
+    public String save(@Valid CustomerDTO customerDTO, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("genders", genderService.findAllGender());
+            model.addAttribute("customerTypes", customerTypeService.findAllCustomerType());
+            return "/customer/create";
+        } else {
+            customerService.createCustomer(customerDTO);
+            redirectAttributes.addFlashAttribute("success", "Create complete");
+            return "redirect:/customer-list";
         }
     }
+
+//    @PostMapping("/customer-save")
+//    public String save(@Valid CustomerDTO customerDTO, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
+//        try {
+//            if (bindingResult.hasErrors()) {
+//                model.addAttribute("genders", genderService.findAllGender());
+//                model.addAttribute("customerTypes", customerTypeService.findAllCustomerType());
+//                return "/customer/create";
+//            } else {
+//                if (!customerService.existId(customerDTO.getCustomerId())) {
+//                    customerService.createCustomer(customerDTO);
+//                    redirectAttributes.addFlashAttribute("success", "Create complete");
+//                    return "redirect:/customer-list";
+//                } else {
+//                    throw new DuplicateIDException();
+//                }
+//            }
+//        } catch (DuplicateIDException e) {
+//            return "/customer/inputs-not-acceptable";
+//        }
+//    }
 }

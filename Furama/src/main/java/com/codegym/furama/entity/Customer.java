@@ -55,7 +55,26 @@ public class Customer {
     @OneToMany(mappedBy = "customer")
     private Set<Contract> contracts;
 
+    private Integer customerGenderId;
+
+    private Integer customerTypeId;
+
     public Customer() {
     }
 
+    public Customer(String customerId, String customerAddress, Date customerBirthday, String customerEmail,
+                    String customerIDCard, String customerName,
+                    String customerPhone, Integer deleteStatus,
+                    Integer customerGenderId, Integer customerTypeId) {
+        this.customerId = customerId;
+        this.customerName = customerName;
+        this.customerBirthday = customerBirthday;
+        this.customerIDCard = customerIDCard;
+        this.customerPhone = customerPhone;
+        this.customerEmail = customerEmail;
+        this.customerAddress = customerAddress;
+        this.deleteStatus = deleteStatus;
+        this.customerGenderId = customerGenderId;
+        this.customerTypeId = customerTypeId;
+    }
 }
