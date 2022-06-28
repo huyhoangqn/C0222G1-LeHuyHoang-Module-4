@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+          integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Roboto');
+
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        i {
+            margin-right: 10px;
+        }
+
+        /*------------------------*/
+        input:focus,
+        button:focus,
+        .form-control:focus {
+            outline: none;
+            box-shadow: none;
+        }
+
+        .form-control:disabled, .form-control[readonly] {
+            background-color: #fff;
+        }
+
+        .table tr,
+        .table tr td {
+            vertical-align: middle;
+        }
+
+        .button-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .button-container .form-control {
+            max-width: 80px;
+            text-align: center;
+            display: inline-block;
+            margin: 0px 5px;
+        }
+
+        #myTable .form-control {
+            width: auto;
+            display: inline-block;
+        }
+
+        .cart-qty-plus,
+        .cart-qty-minus {
+            width: 38px;
+            height: 38px;
+            background-color: #fff;
+            border: 1px solid #ced4da;
+            border-radius: .25rem;
+        }
+
+        .cart-qty-plus:hover,
+        .cart-qty-minus:hover {
+            background-color: #5161ce;
+            color: #fff;
+        }
+
+        .img-prdct {
+            width: 50px;
+            height: 50px;
+            /* 	background-color: #5161ce; */
+            border-radius: 4px;
+        }
+
+        .img-prdct img {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+<div class="container-fluid mt-5">
+    <h2 class="mb-5 text-center">Shopping Cart</h2>
+    <p>
+        <a href="/shop">Back to menu</a>
+    </p>
+<!--    <p th:text="${msg}"></p>-->
+    <form action="#" th:action="@{/#}" th:object="${cart}" method="post">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="table-responsive">
+
+                    <table id="myTable" class="table">
+                        <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Name</th>
+                            <th>Qty</th>
+                            <th>Price</th>
+                            <th class="text-right"><span id="amount" class="amount">Amount</span></th>
+                            <th>Delete</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="row:${cart.products.entrySet()}">
+                            <td>
+                                <div class="product-img">
+                                    <div class="img-prdct"><img
+                                            th:src="${row.getKey().productImgLink}"></div>
+                                </div>
+                            </td>
+                            <td>
+                                <p th:text="${row.getKey().productName}"></p>
+                            </td>
+                            <td>
+                                <div class="button-container">
+                                    <button class="cart-qty-plus" type="button" value="+">+</button>
+                                    <input type="text" name="qty" min="0" class="qty form-control"
+                                           th:value="${row.getValue()}"/>
+                                    <button class="cart-qty-minus" type="button" value="-">-</button>
+                                </div>
+                            </td>
+                            <td>
+                                <input th:value="${#numbers.formatCurrency(row.getKey().productPrice)}"
+                                       class="form-control"
+                                       disabled>
+                                <input type="text" th:value="${row.getKey().productPrice}" class="price form-control"
+                                       disabled
+                                       hidden>
+                            </td>
+                            <td align="right"><span type="currency" id="amount" class="amount"
+                                                    th:value="${row.getKey().productPrice*row.getValue()}"> </span>
+
+                            </td>
+                            <td>
+                                <a th:href="@{/delete/{id}(id=${row.getKey().productId})}">Delete</a>
+                            </td>
+                        </tr>
+
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                            <td colspan="4"></td>
+                            <td align="right"><strong>TOTAL = $ <span id="total" class="total">0</span></strong></td>
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <a href="/pay">PAYMENT</a>
+            </div>
+        </div>
+    </form>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"
+        integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF"
+        crossorigin="anonymous"></script>
+<script>
+</script>
+</body>
+</html>
