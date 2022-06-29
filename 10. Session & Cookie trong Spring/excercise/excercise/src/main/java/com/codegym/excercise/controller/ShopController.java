@@ -26,7 +26,7 @@ public class ShopController {
     }
 
     @ModelAttribute("cart")
-    public Cart getCart(){
+    public Cart getCart() {
         return new Cart();
     }
 
@@ -51,4 +51,5 @@ public class ShopController {
             return "redirect:/cart-list";
         }
     }
+
 }
