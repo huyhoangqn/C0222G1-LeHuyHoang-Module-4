@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Smartphone list</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+
+<!--Form insert-->
+<form id="add-smartphone">
+    <table>
+        <tr>
+            <td>Producer:</td>
+            <td><input type="text" id="producer"></td>
+        </tr>
+        <tr>
+            <td>Model</td>
+            <td><input type="text" id="model"></td>
+        </tr>
+        <tr>
+            <td>Price</td>
+            <td><input type="text" id="price"></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <button onclick="addNewSmartphone()">Add</button>
+            </td>
+        </tr>
+    </table>
+</form>
+<!--Show table-->
+
+<table id="smartphoneList" class="table table-striped">
+    <tr>
+        <th>Producer</th>
+        <th>Model</th>
+        <th>Price</th>
+        <th>Delete</th>
+        <th>Edit</th>
+    </tr>
+    <tr th:each="smartphone:${smartphones}">
+        <td th:text="${smartphone.producer}"></td>
+        <td th:text="${smartphone.model}"></td>
+        <td th:text="${smartphone.price}"></td>
+        <td>
+            <button th:id="${smartphone.id}" type="button" class="btn btn-primary" data-toggle="modal"
+                    data-target="#deleteModal" onclick="showDeleteForm(this.id)">
+                Delete
+            </button>
+        </td>
+        <td>
+            <button th:id="${smartphone.id}" type="button" class="btn btn-primary" data-toggle="modal"
+                    data-target="#editModal" onclick="showEditForm(this.id)">
+                Edit
+            </button>
+        </td>
+    </tr>
+</table>
+
+<!-- Edit Modal -->
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Edit form</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="edit-modal">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="editSmartphone()">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Delete confirmation form</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="delete-modal-body">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                <button id="delete-smartphone" type="button" class="btn btn-primary">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript">
+
+    function addNewSmartphone() {
+        let producer = $('#producer').val();
+        let model = $('#model').val();
+        let price = $('#price').val();
+        let smartPhone = {
+            model: model,
+            producer: producer,
+            price: price
+        }
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-type': 'application/json'
+            },
+            type: "POST",
+            data: JSON.stringify(smartPhone),
+            url: "/smartphones",
+            success: successHandler
+        });
+        event.preventDefault();
+    }
+
+    function successHandler() {
+        $.ajax({
+            type: "GET",
+            url: "/smartphones",
+            success: function (data) {
+                let content = '<tr>\n' +
+                    '<th>Producer</th>\n' +
+                    '<th>Model</th>\n' +
+                    '<th>Price</th>\n' +
+                    '<th>Delete</th>\n' +
+                    '<th>Edit</th>\n' +
+                    '</tr>';
+                for (let i = 0; i < data.length; i++) {
+                    content += getSmartphone(data[i]);
+                }
+                document.getElementById('smartphoneList').innerHTML = content
+                $("#deleteModal").modal('hide');
+                $("#editModal").modal('hide');
+            }
+        })
+    }
+
+    function getSmartphone(smartphone) {
+        return `<tr>
+                    <td>${smartphone.producer}</td>
+                    <td>${smartphone.model}</td>
+                    <td>${smartphone.price}</td>
+                    <td>
+                        <button id="${smartphone.id}" type="button" class="btn btn-primary" data-toggle="modal"
+                            data-target="#deleteModal" onclick="showDeleteForm(this.id)">
+                            Delete
+                        </button>
+                    </td>
+                    <td>
+                        <button id="${smartphone.id}" type="button" class="btn btn-primary" data-toggle="modal"
+                                data-target="#editModal" onclick="showEditForm(this.id)">Edit
+                        </button>
+                    </td>
+                 </tr>`
+    }
+
+    $('#delete-smartphone').click(function (event) {
+        let smartphoneId = document.getElementById("delete-sp-id").value;
+        $.ajax({
+            type: "DELETE",
+            url: `/smartphones/${smartphoneId}`,
+            success: successHandler
+        })
+    })
+
+    function showDeleteForm(id) {
+        let container = `<input type="text" readonly value="${id}" id="delete-sp-id">
+                        <p>Are you sure you want to delete this smart phone?</p>`
+        document.getElementById("delete-modal-body").innerHTML = container;
+    }
+
+    function showEditForm(id) {
+        $.ajax({
+            type: "GET",
+            url: `/smartphones/${id}`,
+            success: function (smartphone) {
+                console.log(smartphone);
+                let model = smartphone.model;
+                let price = smartphone.price;
+                let producer = smartphone.producer;
+                let container = `<input type="hidden" id="edit-id" value="${id}"><table>
+                            <tr>
+                                <td>Producer:</td>
+                                <td><input type="text" id="edit-producer" value=${producer}></td>
+                           </tr>
+                           <tr>
+                               <td>Model</td>
+                               <td><input type="text" id="edit-model" value="${model}"></td>
+                            </tr>
+                           <tr>
+                                <td>Price</td>
+                               <td><input type="text" id="edit-price" value="${price}"></td>
+                           </tr>
+                       </table>`;
+                document.getElementById("edit-modal").innerHTML = container;
+            }
+        })
+    }
+
+    function editSmartphone() {
+        let id = $('#edit-id').val();
+        let producer = $('#edit-producer').val();
+        let model = $('#edit-model').val();
+        let price = $('#edit-price').val();
+        let smartphone = {
+            id: id,
+            producer: producer,
+            model: model,
+            price: price
+        }
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-type': 'application/json'
+            },
+            type: "PUT",
+            data: JSON.stringify(smartphone),
+            url: `/smartphones/${id}`,
+            success: successHandler
+        })
+    }
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</body>
+</html>
