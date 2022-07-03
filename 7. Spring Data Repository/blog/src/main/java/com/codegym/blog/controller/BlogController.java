@@ -66,7 +66,6 @@ public class BlogController {
 
     @PostMapping("/update")
     public String update(Blog blog, RedirectAttributes redirect) {
-
         blogService.update(blog);
         redirect.addFlashAttribute("success", "Updated blog successfully!");
         return "redirect:/";

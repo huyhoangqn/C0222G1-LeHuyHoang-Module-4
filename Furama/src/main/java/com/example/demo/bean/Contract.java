@@ -20,15 +20,18 @@ public class Contract {
     private Integer contractId;
 
     @NotBlank
+    @Column(name = "contract_start_date")
     private String contractStartDate;
 
     @NotBlank
+    @Column(name = "contract_end_date")
     private String contractEndDate;
 
     @NotNull
     @Positive
+    @Column(name = "contract_deposite")
     private Double contractDeposit;
-
+    @Column(name = "contract_total_money")
     private Double contractTotalMoney;
 
     @ManyToOne
@@ -61,6 +64,16 @@ public class Contract {
         this.contractTotalMoney = contractTotalMoney;
         this.employee = employee;
         this.contractDetails = contractDetails;
+        this.service = service;
+        this.customer = customer;
+    }
+
+    public Contract(Integer contractId, String contractStartDate, String contractEndDate, Double contractDeposit, Employee employee, Service service, Customer customer) {
+        this.contractId = contractId;
+        this.contractStartDate = contractStartDate;
+        this.contractEndDate = contractEndDate;
+        this.contractDeposit = contractDeposit;
+        this.employee = employee;
         this.service = service;
         this.customer = customer;
     }

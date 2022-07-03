@@ -15,7 +15,6 @@ public class User {
 
     private String passWord;
 
-
     public User() {
     }
     public User(String userName, String passWord) {

@@ -24,7 +24,7 @@ public class Customer {
 
     @NotEmpty
     private String customerBirthday;
-
+    @Column(name = "gender_id")
     private Integer customerGender;
 
     @NotBlank

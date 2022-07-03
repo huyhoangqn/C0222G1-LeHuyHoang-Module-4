@@ -1,23 +1,19 @@
 package com.example.demo.service;
 
-import com.example.demo.dto.CustomerDTO;
+import com.example.demo.bean.Customer;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface ICustomerService {
-    Page<CustomerDTO> findAllCustomer(Pageable pageable);
+    Page<Customer> showAll(Pageable pageable);
+
+    void save(Customer customer);
 
     Customer findById(String id);
 
-//    Customer create(Customer customer) throws DuplicateIDException;
+    void delete(Customer customer);
 
-    Customer edit(Customer customer) throws DuplicateIDException;
+    Page<Customer> findByName(Pageable pageable, String name);
 
-    Customer remove(String id);
-
-    boolean existId(String id);
-
-    Page<Customer> findAllByCustomerNameContaining(String name, Pageable pageable);
-
-    void createCustomer(CustomerDTO customerDTO);
+    Iterable<Customer> findAll();
 }

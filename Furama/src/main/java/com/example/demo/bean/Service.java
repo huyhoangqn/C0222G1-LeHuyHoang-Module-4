@@ -19,26 +19,34 @@ public class Service {
     private String serviceId;
 
     @NotBlank
+    @Column(name = "service_name")
     private String serviceName;
 
     @NotNull
     @Positive
+    @Column(name = "service_area")
     private Integer serviceArea;
 
     @NotNull
     @Positive
+    @Column(name = "service_cost")
     private Double serviceCost;
 
     @NotNull
     @Positive
+    @Column(name = "service_max_people")
     private Integer serviceMaxPeople;
-
+    @Column(name = "standard_room")
     private String standardRoom;
+    @Column(name = "description_other_convenience")
     private String descriptionOtherConvenience;
+    @Column(name = "pool_area")
     private Double poolArea;
+    @Column(name = "number_of_floors")
     private Integer numberOfFloors;
 
     @NotBlank
+    @Column(name = "link_img")
     private String linkImg;
 
     @OneToMany(mappedBy = "service")
@@ -46,12 +54,12 @@ public class Service {
     private Set<Contract> contracts;
 
     @ManyToOne
-    @JoinColumn(name = "serviceTypeId")
+    @JoinColumn(name = "service_type_id")
     @JsonBackReference
     private ServiceType serviceType;
 
     @ManyToOne
-    @JoinColumn(name = "rentTypeId")
+    @JoinColumn(name = "rent_type_id")
     @JsonBackReference
     private RentType rentType;
 
@@ -73,5 +81,4 @@ public class Service {
         this.serviceType = serviceType;
         this.rentType = rentType;
     }
-
 }

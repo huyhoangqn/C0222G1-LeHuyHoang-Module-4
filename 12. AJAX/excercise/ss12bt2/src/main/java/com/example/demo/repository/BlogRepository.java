@@ -20,5 +20,6 @@ public interface BlogRepository extends JpaRepository<Blog, Integer> {
 
     @Query(value = "select * from blogs where title like :title", nativeQuery = true)
     List<Blog> search(@Param("title") String title);
+    
 
 }
