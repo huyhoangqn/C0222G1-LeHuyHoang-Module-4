@@ -160,7 +160,7 @@
             <div class="card p-2">
                 <div class="card-body">
                     <h5 class="card-title text-center">Sign In</h5>
-                    <form action="" class=''>
+                    <form name='f' th:action="@{/j_spring_security}" method="post">
 
                         <div class="form-group">
 
@@ -171,7 +171,7 @@
                       <i class="fas fa-user-astronaut"></i>
                     </span>
                                 </div>
-                                <input type="text" class="form-control" id="username" aria-describedby="usernameHelp"
+                                <input type="text" class="form-control" id="username" name="username" aria-describedby="usernameHelp"
                                        placeholder="Enter user name" required>
                             </div>
                         </div>
@@ -180,17 +180,17 @@
                             <label for="exampleInputPassword1">Password</label>
                             <div class="input-group">
                                 <div class="input-group-prepend">
-                      <span class="input-group-text" id="">
+                      <span class="input-group-text">
                         <i class="fas fa-key"></i>
                       </span>
                                 </div>
-                                <input type="password" class="form-control" id="exampleInputPassword1"
+                                <input type="password" class="form-control" name="password" id="exampleInputPassword1"
                                        placeholder="Password" required>
                             </div>
                         </div>
 
                         <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="form-check-input custom-control-input" id="exampleCheck1">
+                            <input type="checkbox" class="form-check-input custom-control-input" name="remember-me" id="exampleCheck1">
                             <label class="custom-control-label" for="exampleCheck1">Remember me</label>
                         </div>
                         <button type="submit" class="btn btn-block mt-3 p-2">Submit</button>
