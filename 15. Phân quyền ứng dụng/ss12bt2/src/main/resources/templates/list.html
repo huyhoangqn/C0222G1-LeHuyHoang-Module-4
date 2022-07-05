@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+</head>
+<body>
+
+<form>
+    <table>
+        <tr>
+            <td><input type="text" id="searchtitle" placeholder="search"></td>
+        </tr>
+        <tr>
+            <td>
+                <button onclick="searchblog()">Search</button>
+            </td>
+        </tr>
+    </table>
+</form>
+
+<table id="bloglist" class="table table-striped">
+    <tr>
+        <th>Id</th>
+        <th>Author</th>
+        <th>Content</th>
+        <th>Date</th>
+        <th>Title</th>
+        <th>Categoty</th>
+    </tr>
+    <tr th:each="item:${listblog}">
+        <td th:text="${item.id}"></td>
+        <td th:text="${item.content}"></td>
+        <td th:text="${item.author}"></td>
+        <td th:text="${item.date}"></td>
+        <td th:text="${item.title}"></td>
+        <td th:text="${item.category.category}"></td>
+    </tr>
+</table>
+<br>
+<button onclick="loadMore()">Thêm</button>
+<script type="text/javascript">
+    function searchblog() {
+        let title = $('#searchtitle').val();
+        // console.log(title)
+        let blog = {
+            title: title
+        }
+        debugger
+        // console.log(blog);
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-type': 'application/json'
+            },
+            type: "POST",
+            data: JSON.stringify(blog),
+            // url: `blogRest/search/${title}`,
+            // url: "/blogRest/search?title=" + title,
+            url: "/blogRest/search",
+            success: successHandler,
+            error: console.log("loi")
+        });
+        event.preventDefault();
+    }
+
+    var size = 1;
+
+    function loadMore() {
+        size += 1;
+        $.ajax({
+            type: "GET",
+            //tên API
+            url: `/blogRest/list/${size}`,
+            //xử lý khi thành công
+            success: function (data) {
+                if (size > data.length) {
+                    alert("Đã hết danh sách cần hiển thị!")
+                }
+                successHandler(data)
+            }
+        });
+        //chặn sự kiện mặc định của thẻ
+        event.preventDefault();
+    }
+
+    function successHandler(data) {
+        let content = '<tr>\n' +
+            '<th>Id</th>\n' +
+            '<th>Author</th>\n' +
+            '<th>Content</th>\n' +
+            '<th>Date</th>\n' +
+            '<th>Title</th>\n' +
+            '<th>Category</th>\n' +
+            '</tr>';
+        for (let i = 0; i < data.length; i++) {
+            content += getBlog(data[i]);
+        }
+        document.getElementById('bloglist').innerHTML = content
+    }
+
+    function getBlog(item) {
+        return `<tr>
+                    <td>${item.id}</td>
+                    <td>${item.author}</td>
+                    <td>${item.content}</td>
+                    <td>${item.date}</td>
+                    <td>${item.title}</td>
+                    <td>${item.category.category}</td>
+                 </tr>`
+    }
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</body>
+</html>

@@ -31,15 +31,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
         http.csrf().disable();
-        http.authorizeRequests().antMatchers("/", "/login", "/logout").permitAll();
 
-        http.authorizeRequests()
-                .antMatchers("/userInfo", "student/list")
-                .access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')");
-
-        http.authorizeRequests()
-                .antMatchers("/admin")
-                .access("hasRole('ROLE_ADMIN')");
         http.authorizeRequests().antMatchers("/", "/login", "/logout").permitAll();
 
         // Cấu hình cho Login Form.
@@ -49,8 +41,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginPage("/login")//
                 .defaultSuccessUrl("/userInfo")// đăng nhập thành công -> call 1 request /userInfo
                 .failureUrl("/login?error=true")// đăng nhập thất bại -> /login?error = true
-                .usernameParameter("username")//
-                .passwordParameter("password")
+//                .usernameParameter("username")//
+//                .passwordParameter("password")
                 // Cấu hình cho Logout Page.
                 .and().logout().logoutUrl("/logout").logoutSuccessUrl("/logoutSuccessful");
 
@@ -58,12 +50,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().and() //
                 .rememberMe()
                 .userDetailsService(userDetailsService)//
-                .tokenValiditySeconds(24 * 60 * 60);
+                .tokenValiditySeconds(1 * 24 * 60 * 60);
     }
 
     @Bean
     public PersistentTokenRepository persistentTokenRepository() {
-        return new InMemoryTokenRepositoryImpl();
+        InMemoryTokenRepositoryImpl memory = new InMemoryTokenRepositoryImpl();
+        return memory;
     }
 
 }
