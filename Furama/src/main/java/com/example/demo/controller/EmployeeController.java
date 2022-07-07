@@ -14,10 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -92,5 +89,37 @@ public class EmployeeController {
                 return "redirect:/employee/show";
             }
         }
+    }
+
+    @GetMapping(value = "/search")
+    public ModelAndView showSearch(@PageableDefault(value = 1) Pageable pageable, @RequestParam("search") String name) {
+        Page<Employee> employees = employeeService.findByName(pageable, "%" + name + "%");
+        ModelAndView modelAndView = new ModelAndView("employee/showEmployee");
+        if (employees.getContent().size() == 0) {
+            modelAndView.addObject("msg", "Not found.");
+        }
+        modelAndView.addObject("employees", employees);
+        return modelAndView;
+    }
+
+    @GetMapping(value = "/update/{id}")
+    public ModelAndView showPageUpdateEmployee(@PathVariable String id) {
+        Employee employee = employeeService.findById(id);
+        return new ModelAndView("employee/updateEmployee", "employee", employee);
+    }
+
+    @PostMapping(value = "/update")
+    public String updateEmployee(@ModelAttribute Employee employee, RedirectAttributes redirectAttributes) {
+        redirectAttributes.addFlashAttribute("msg", "Update employee: " + employee.getName() + " success.");
+        employeeService.save(employee);
+        return "redirect:/employee/show";
+    }
+
+    @GetMapping(value = "/delete/{id}")
+    public String deleteEmployee(@PathVariable String id, RedirectAttributes redirectAttributes) {
+        Employee employee = employeeService.findById(id);
+        redirectAttributes.addFlashAttribute("msg", "Delete employee: " + employee.getName() + " success.");
+        employeeService.delete(employee);
+        return "redirect:/employee/show";
     }
 }

@@ -14,7 +14,7 @@
             <form class="form-inline my-2 my-lg-0">
                 <div class="searchbar">
                     <input class="search_input" type="text" name="" placeholder="Search...">
-                    <a href="#" class="search_icon"><i class="fas fa-search"></i></a>
+                    <button type="submit">Search</button>
                 </div>
             </form>
         </div>
@@ -38,20 +38,28 @@
             <table class="table table-striped">
                 <thead class="thead-dark">
                 <tr>
-                    <th scope="col">Full name customer</th>
                     <th scope="col">Service name</th>
-                    <th scope="col">Employee</th>
+                    <th scope="col">Full name customer</th>
+                    <th scope="col">Start day</th>
+                    <th scope="col">End day</th>
+                    <th scope="col">Deposit money</th>
+                    <th scope="col">Total money</th>
                     <th scope="col">Attach service</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr th:if="${contracts}" th:each="c:${contracts}">
-                    <td th:text="${c.customer.customerName}"></td>
                     <td th:text="${c.service.serviceName}"></td>
-                    <td th:text="${c.employee.name}"></td>
+                    <td th:text="${c.customer.customerName}"></td>
+                    <td th:text="${c.contractStartDate}"></td>
+                    <td th:text="${c.contractEndDate}"></td>
+                    <td th:text="${c.contractDeposit}"></td>
+                    <td th:text="${c.contractTotalMoney}"></td>
                     <td>
-                        <span th:each="d:${c.contractDetails}"
-                              th:text="${d.getAttachService().attachServiceName}+' '"></span>
+                        <a id="createItem" type="button" class="btn btn-success createEmployee"
+                           data-toggle="modal" data-target="#modalCreate">
+                            Attach Service
+                        </a>
                     </td>
                 </tr>
                 </tbody>
@@ -87,6 +95,31 @@
                     </li>
                 </ul>
             </nav>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modalCreate" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Attach Service List</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="edit-modal">
+                <div th:each="c:${contracts}">
+                    <div th:each="d, count:${c.contractDetails}">
+                        <span  th:text="${count.count}"></span>
+                        <span  th:text="${d.getAttachService().attachServiceName}"></span>
+                        <br>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
         </div>
     </div>
 </div>

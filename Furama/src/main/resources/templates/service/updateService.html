@@ -19,7 +19,6 @@
         <div class="col-lg-6">
             <form th:action="@{/service/update}" th:object="${service}" method="post" enctype="multipart/form-data">
                 <input type="text" hidden="hidden" th:field="*{serviceId}">
-                <input type="text" hidden="hidden" th:field="*{linkImg}">
                 <div class="form-group">
                     <label for="inputName">Name service:</label>
                     <input th:field="*{serviceName}" type="text" class="form-control" id="inputName">

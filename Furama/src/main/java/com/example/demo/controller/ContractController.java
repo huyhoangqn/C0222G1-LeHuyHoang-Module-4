@@ -18,7 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
-@RequestMapping(value = "/contract")
+@RequestMapping("/contract")
 public class ContractController {
     @Autowired
     private ContractService contractService;

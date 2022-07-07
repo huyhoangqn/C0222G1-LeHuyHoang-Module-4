@@ -36,7 +36,6 @@
     <div class="row m-5">
         <div class="col-lg-4" th:each="service,s:${services}" th:if="${s.index < 3}">
             <div class="card" style="width: 18rem;">
-                <img th:src="@{'/getImg/'+${service.linkImg}}" class="card-img-top" alt="...">
                 <div class="card-body">
                     <h5 class="card-title" th:text="${service.serviceName}"></h5>
                     <p class="card-text" th:text="${service.descriptionOtherConvenience}"></p>

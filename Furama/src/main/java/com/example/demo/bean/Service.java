@@ -45,10 +45,6 @@ public class Service {
     @Column(name = "number_of_floors")
     private Integer numberOfFloors;
 
-    @NotBlank
-    @Column(name = "link_img")
-    private String linkImg;
-
     @OneToMany(mappedBy = "service")
     @JsonManagedReference
     private Set<Contract> contracts;
@@ -66,7 +62,7 @@ public class Service {
     public Service() {
     }
 
-    public Service(String serviceId, String serviceName, Integer serviceArea, Double serviceCost, Integer serviceMaxPeople, String standardRoom, String descriptionOtherConvenience, Double poolArea, Integer numberOfFloors, String linkImg, Set<Contract> contracts, ServiceType serviceType, RentType rentType) {
+    public Service(String serviceId, String serviceName, Integer serviceArea, Double serviceCost, Integer serviceMaxPeople, String standardRoom, String descriptionOtherConvenience, Double poolArea, Integer numberOfFloors, Set<Contract> contracts, ServiceType serviceType, RentType rentType) {
         this.serviceId = serviceId;
         this.serviceName = serviceName;
         this.serviceArea = serviceArea;
@@ -76,7 +72,6 @@ public class Service {
         this.descriptionOtherConvenience = descriptionOtherConvenience;
         this.poolArea = poolArea;
         this.numberOfFloors = numberOfFloors;
-        this.linkImg = linkImg;
         this.contracts = contracts;
         this.serviceType = serviceType;
         this.rentType = rentType;

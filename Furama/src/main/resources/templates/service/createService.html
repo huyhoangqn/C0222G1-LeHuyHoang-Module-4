@@ -68,11 +68,6 @@
                         <option th:each="r:${rentType}" th:text="${r.rentTypeName}" th:value="${r.rentTypeId}" ></option>
                     </select>
                 </div>
-                <div class="form-group">
-                    <label for="img">Đăng ảnh</label>
-                    <input type="file" name="img" class="form-control-file" accept="image/x-png,image/gif,image/jpeg" id="img">
-                    <label for="img" style="color: palevioletred" th:text="${msg}"></label>
-                </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
         </div>
