@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+          integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+</head>
+<body>
+<div th:insert="~{/headerAndFooter::header}"></div>
+<div class="container-fluid my-1" style="margin-top: 10%">
+    <div class="row">
+        <div class="col-lg-4">
+            <form class="form-inline my-2 my-lg-0">
+                <div class="searchbar">
+                    <input class="search_input" type="text" name="" placeholder="Search...">
+                    <button type="submit">Search</button>
+                </div>
+            </form>
+        </div>
+        <div class="col-lg-8"></div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="text-warning text-center">LIST CONTRACT</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3"></div>
+        <div class="col-lg-6">
+            <div th:if="${msg}" class="alert alert-primary" role="alert" th:text="${msg}">
+            </div>
+        </div>
+        <div class="col-lg-3"></div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <table class="table table-striped">
+                <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Service name</th>
+                    <th scope="col">Full name customer</th>
+                    <th scope="col">Start day</th>
+                    <th scope="col">End day</th>
+                    <th scope="col">Deposit money</th>
+                    <th scope="col">Total money</th>
+                    <th scope="col">Attach service</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:if="${contracts}" th:each="c:${contracts}">
+                    <td th:text="${c.service.serviceName}"></td>
+                    <td th:text="${c.customer.customerName}"></td>
+                    <td th:text="${c.contractStartDate}"></td>
+                    <td th:text="${c.contractEndDate}"></td>
+                    <td th:text="${c.contractDeposit}"></td>
+                    <td th:text="${c.contractTotalMoney}"></td>
+                    <td>
+                        <a id="createItem" type="button" class="btn btn-success createEmployee"
+                           data-toggle="modal" data-target="#modalCreate">
+                            Attach Service
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3"></div>
+        <div class="col-lg-3"></div>
+        <div class="col-lg-3"></div>
+        <div class="col-lg-3">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    <li class="page-item">
+                        <a class="page-link" th:href="@{'/contract/show'(page=${contracts.number - 1})}"
+                           th:if="${contracts.hasPrevious()}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li class="page-item"><a class="page-link" th:text="${contracts.number -1}"
+                                             th:if="${contracts.hasPrevious()}"
+                                             th:href="@{'/contract/show'(page=${contracts.number - 1})}"></a></li>
+                    <li class="page-item active"><a class="page-link" th:text="${contracts.number}"
+                                                    th:href="@{'/contract/show'(page=${contracts.number})}"></a></li>
+                    <li class="page-item"><a class="page-link" th:text="${contracts.number +1}"
+                                             th:if="${contracts.hasNext()}"
+                                             th:href="@{'/contract/show'(page=${contracts.number + 1})}"></a></li>
+                    <li class="page-item">
+                        <a class="page-link" th:href="@{'/contract/show'(page=${contracts.number + 1})}"
+                           th:if="${contracts.hasNext()}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modalCreate" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Attach Service List</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="edit-modal">
+                <div th:each="c:${contracts}">
+                    <div th:each="d, count:${c.contractDetails}">
+                        <span  th:text="${count.count}"></span>
+                        <span  th:text="${d.getAttachService().attachServiceName}"></span>
+                        <br>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:insert="~{/headerAndFooter::footer}"></div>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"
+        integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
+        crossorigin="anonymous"></script>
+</body>
+</html>

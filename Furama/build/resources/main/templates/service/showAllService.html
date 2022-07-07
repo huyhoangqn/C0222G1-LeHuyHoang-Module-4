@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+          integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+</head>
+<body>
+<div th:insert="~{/headerAndFooter::header}"></div>
+<div class="container-fluid my-1" style="margin-top: 10%">
+    <div class="row">
+        <div class="col-lg-4">
+            <form action="/service/search" class="form-inline my-2 my-lg-0">
+                <div class="searchbar">
+                    <input class="search_input" type="text" name="search" placeholder="Search...">
+                    <button type="submit" th:placeholder="Search...">Search</button>
+                </div>
+            </form>
+        </div>
+        <div class="col-lg-8"></div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="text-warning text-center">LIST SERVICE</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3"></div>
+        <div class="col-lg-6">
+            <div th:if="${msg}" class="alert alert-primary" role="alert" th:text="${msg}">
+            </div>
+        </div>
+        <div class="col-lg-3"></div>
+    </div>
+    <div class="row m-5">
+        <div class="col-lg-4" th:each="service,s:${services}" th:if="${s.index < 3}">
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${service.serviceName}"></h5>
+                    <p class="card-text" th:text="${service.descriptionOtherConvenience}"></p>
+                    <a class="btn btn-primary" th:href="@{/service/showDetail/__${service.serviceId}__}">Detail</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row m-5">
+        <div class="col-lg-4" th:each="service,s:${services}" th:if="${s.index < 6 && s.index > 2}">
+            <div class="card" style="width: 18rem;">
+                <img th:src="@{'/getImg/'+${service.linkImg}}" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${service.serviceName}"></h5>
+                    <p class="card-text" th:text="${service.descriptionOtherConvenience}"></p>
+                    <a class="btn btn-primary" th:href="@{/service/showDetail/__${service.serviceId}__}">Detail</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row m-5">
+        <div class="col-lg-4" th:each="service,s:${services}" th:if="${s.index < 9 && s.index > 5}">
+            <div class="card" style="width: 18rem;">
+                <img th:src="@{'/getImg/'+${service.linkImg}}" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${service.serviceName}"></h5>
+                    <p class="card-text" th:text="${service.descriptionOtherConvenience}"></p>
+                    <a class="btn btn-primary" th:href="@{/service/showDetail/__${service.serviceId}__}">Detail</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3"></div>
+        <div class="col-lg-3"></div>
+        <div class="col-lg-3"></div>
+        <div class="col-lg-3" th:if="${services}">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    <li class="page-item">
+                        <a class="page-link" th:href="@{'/service/showAll'(page=${services.number - 1})}"
+                           th:if="${services.hasPrevious()}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li class="page-item"><a class="page-link" th:text="${services.number -1}"
+                                             th:if="${services.hasPrevious()}"
+                                             th:href="@{'/service/showAll'(page=${services.number - 1})}"></a></li>
+                    <li class="page-item active"><a class="page-link" th:text="${services.number}"
+                                                    th:href="@{'/service/showAll'(page=${services.number})}"></a></li>
+                    <li class="page-item"><a class="page-link" th:text="${services.number +1}"
+                                             th:if="${services.hasNext()}"
+                                             th:href="@{'/service/showAll'(page=${services.number + 1})}"></a></li>
+                    <li class="page-item">
+                        <a class="page-link" th:href="@{'/service/showAll'(page=${services.number + 1})}"
+                           th:if="${services.hasNext()}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+<div th:insert="~{/headerAndFooter::footer}"></div>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"
+        integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
+        crossorigin="anonymous"></script>
+</body>
+</html>
