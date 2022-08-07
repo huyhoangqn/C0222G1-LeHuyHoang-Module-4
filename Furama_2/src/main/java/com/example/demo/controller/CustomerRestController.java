@@ -9,7 +9,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +19,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/customer")
 public class CustomerRestController {
     @Autowired
@@ -55,8 +55,8 @@ public class CustomerRestController {
             return "customer/createCustomer";
         } else {
             redirectAttributes.addFlashAttribute("smg", "Create customer: " + customer.getCustomerName() + " success.");
-            String idCus = "KH-" + ((int) (Math.random() * 10000));
-            customer.setCustomerId(idCus);
+//            String idCus = "KH-" + ((int) (Math.random() * 10000));
+//            customer.setCustomerId(idCus);
             customerService.save(customer);
             return "redirect:/customer/show";
         }
@@ -81,7 +81,7 @@ public class CustomerRestController {
         }
     }
 
-    @GetMapping(value = "/delete/{id}")
+    @DeleteMapping(value = "/delete/{id}")
     public String deleteCustomer(@PathVariable String id, RedirectAttributes redirectAttributes) {
         Customer customer = customerService.findById(id);
         redirectAttributes.addFlashAttribute("msg", "Delete customer: " + customer.getCustomerName() + " success.");
@@ -99,4 +99,11 @@ public class CustomerRestController {
         }
         return modelAndView;
     }
+
+    @PostMapping(value = "/save")
+    public ResponseEntity<Customer> saveCustomer(@RequestBody Customer customer) {
+        customerService.save(customer);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
 }

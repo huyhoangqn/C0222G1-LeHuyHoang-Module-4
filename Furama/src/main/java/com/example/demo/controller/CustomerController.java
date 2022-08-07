@@ -25,7 +25,7 @@ public class CustomerController {
     private ITypeOfCustomerService typeOfCustomerService;
 
     @GetMapping("/show")
-    public ModelAndView displayPageShow(@PageableDefault(value = 1) Pageable pageable) {
+    public ModelAndView displayPageShow(@PageableDefault(value = 2) Pageable pageable) {
         Page<Customer> customers = customerService.showAll(pageable);
         ModelAndView modelAndView = new ModelAndView("customer/showCustomer");
         if (customers.getContent().size() == 0) {

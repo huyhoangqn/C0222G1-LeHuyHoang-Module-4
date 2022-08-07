@@ -44,7 +44,6 @@ public class Customer {
 
     @ManyToOne
     @JoinColumn(name = "customerTypeId")
-
     private CustomerType customerType;
 
     public Customer() {
